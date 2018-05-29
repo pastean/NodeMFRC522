@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+	<title>Proiect RFID</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	let readButton = document.getElementById('read_button');
+
+	const socket = io();
+	socket.on('read', data => {
+		let readDiv = document.getElementById('read');
+		let readButton = document.getElementById('read_button');
+		console.log('data in front', data);
+		let child = document.createElement('div');
+		child.setAttribute('class','single_read');
+		let textNode = document.createTextNode(data);
+		child.appendChild(textNode);
+		readDiv.appendChild(child);
+		readButton.value = "START READING";
+		readButton.removeAttribute('disabled');
+	})
+	
+	function startReading() {
+		var readButton = document.getElementById('read_button');
+		readButton.disabled = true;
+		readButton.value = "PRESENT CARD "
+		socket.emit('startReading');
+		console.log('called frontend');
+	
+	}
+
+	function startWriting() {		
+		var writeInput = document.getElementById('write_input')
+		
+		socket.emit('startWriting', writeInput.value)
+		writeInput.value = ''; 
+	}
+
+</script>
+<body>
+<div class="main_container">
+	<div class="read_container">
+		<input onclick="startReading()" 
+	       	       id="read_button" 
+	               type="button" 
+	               value="START READING"/>
+		<div id="read"></div>
+	</div>
+	<div class="write_container">
+		<form onsubmit="return false">
+			<input id="write_input" type="text" placeholder="enter name"/>
+			<input type="button" onclick="startWriting()" value="Write"/>
+		</form>
+	</div>
+</div>
+</body>
+<style>
+.single_read {
+border-bottom: 2px;
+padding: 10px;
+background-color: #fff;
+color: #005073
+overflow: hidden;
+width: 170px;
+margin: 5px;
+overflow: hidden;
+}
+
+#read_button {
+background-color: #005073;
+border: none;
+font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+font-weight: 100;
+text-decoration: none;
+user-select: none;
+color: #fff;
+padding: 20px 40px;
+letter-spacing: 1.3px;
+max-height: 52px;
+}
+#read {
+//padding-left: 50px;
+
+}
+
+.main_container {
+display: flex;
+flex-direction: row;
+width: 50%;
+height: 500px;
+background-color: white;
+}
+
+.read_container {
+display: flex;
+flex-flow: column;
+min-height: 300px;
+
+padding: 10px;
+background-color: white;
+}
+
+.write_container {
+border: 1px solid green;
+height: 50%;
+overflow: hidden;
+padding: 10px;
+}
+</style>
+</html>

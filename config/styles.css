@@ -1,0 +1,16 @@
+#read {
+padding: 2px;
+}
+
+.main_container {
+border: 1px solid lightblue;
+}
+
+.read_container {
+border: 1px solid 'red';
+}
+
+.write_container {
+border: 1px solid 'green';
+}
+
