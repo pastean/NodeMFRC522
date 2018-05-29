@@ -10,8 +10,8 @@ const path = require('path')
 const _favicon = favicon(path.join(__dirname, 'public', 'favicon.ico'))
 
 const PythonShell = require('python-shell')
-const pathRead = './MFRC522-python/Read.py'
-const pathWrite = './MFRC522-python/Write.py'
+const pathRead = './MFRC522/Read.py'
+const pathWrite = './MFRC522/Write.py'
 //const readShell = new PythonShell('./MFRC522-python/Read.py')
 
 //app.use(express.static(__dirname + '/config'));
